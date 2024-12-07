@@ -33,6 +33,14 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
+                'permissions' => [
+                    'managerHigher' => $request->user() ? $request->user()->can('manager-higher') : null,
+                    'userHigher' => $request->user() ? $request->user()->can('user-higher') : null,
+                ],
+            ],
+            'flash' => [
+                'message' => fn () => $request->session()->get('message'),
+                'status' => fn () => $request->session()->get('status'),
             ],
         ];
     }
