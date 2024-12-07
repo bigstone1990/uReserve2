@@ -14,6 +14,18 @@ Route::get('/', function () {
     ]);
 });
 
+Route::prefix('manager')->middleware('can:manager-higher')->group(function () {
+    Route::get('/index', function () {
+        dd('manager');
+    });
+});
+
+Route::middleware('can:user-higher')->group(function () {
+    Route::get('/index', function () {
+        dd('user');
+    });
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
