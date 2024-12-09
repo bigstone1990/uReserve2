@@ -24,7 +24,7 @@ const showingNavigationDropdown = ref(false);
                             <div class="flex shrink-0 items-center">
                                 <Link :href="route('dashboard')">
                                     <ApplicationLogo
-                                        class="block h-9 w-auto fill-current text-gray-800"
+                                        class="block h-14 w-auto fill-current text-gray-800"
                                     />
                                 </Link>
                             </div>
@@ -37,7 +37,21 @@ const showingNavigationDropdown = ref(false);
                                     :href="route('dashboard')"
                                     :active="route().current('dashboard')"
                                 >
-                                    Dashboard
+                                    イベントカレンダー
+                                </NavLink>
+                                <NavLink
+                                    v-if="$page.props.auth.permissions.managerHigher"
+                                    :href="route('events.index')"
+                                    :active="route().current('events.index')"
+                                >
+                                    イベント管理
+                                </NavLink>
+                                <NavLink
+                                    v-if="$page.props.auth.permissions.userHigher"
+                                    :href="route('mypage.index')"
+                                    :active="route().current('mypage.index')"
+                                >
+                                    マイページ
                                 </NavLink>
                             </div>
                         </div>
@@ -145,6 +159,20 @@ const showingNavigationDropdown = ref(false);
                             :active="route().current('dashboard')"
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            v-if="$page.props.auth.permissions.managerHigher"
+                            :href="route('events.index')"
+                            :active="route().current('events.index')"
+                        >
+                            イベント管理
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            v-if="$page.props.auth.permissions.userHigher"
+                            :href="route('mypage.index')"
+                            :active="route().current('mypage.index')"
+                        >
+                            マイページ
                         </ResponsiveNavLink>
                     </div>
 
