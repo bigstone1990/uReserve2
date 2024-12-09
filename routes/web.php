@@ -27,9 +27,10 @@ Route::middleware('can:user-higher')->group(function () {
     Route::get('/mypage', [MyPageController::class, 'index'])->name('mypage.index');
     Route::get('/mypage/{id}', [MyPageController::class, 'show'])->name('mypage.show');
     Route::post('/mypage/{id}', [MyPageController::class, 'cancel'])->name('mypage.cancel');
-    Route::get('/events/{id}', [ReservationController::class, 'detail'])->name('events.detail');
     Route::post('/events/{id}', [ReservationController::class, 'reserve'])->name('events.reserve');
 });
+
+Route::middleware('auth','can:user-higher')->get('/events/{id}', [ReservationController::class, 'detail'])->name('events.detail');
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
