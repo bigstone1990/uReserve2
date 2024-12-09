@@ -20,7 +20,8 @@ const props = defineProps({
     event_date: String,
     start_time: String,
     end_time: String,
-    reservable_people: Number
+    reservable_people: Number,
+    isReserved: Object
 });
 
 const reserve_people = ref(1);
@@ -107,14 +108,22 @@ const formatDateTime = (date) => {
                                     <div>
                                         <TextLabel value="予約人数" />
                                         <div class="mt-1 block w-full">
-                                            <select v-model="reserve_people">
-                                                <option v-for="people in props.reservable_people" :key="people" :value="people">{{ people }}</option>
-                                            </select>
+                                            <template v-if="props.reservable_people <= 0">
+                                                <span>このイベントは満員です</span>
+                                            </template>
+                                            <template v-else>
+                                                <select v-model="reserve_people">
+                                                    <option v-for="people in props.reservable_people" :key="people" :value="people">{{ people }}</option>
+                                                </select>
+                                            </template>
                                         </div>
                                     </div>
                                 </div>
     
-                                <div class="mt-4 flex items-center justify-center">
+                                <div v-if="props.isReserved !== null">
+                                    <span>このイベントはすでに予約済みです</span>
+                                </div>
+                                <div v-else-if="props.reservable_people > 0" class="mt-4 flex items-center justify-center">
                                     <PrimaryButton
                                         :class="{ 'opacity-25': form.processing }"
                                         :disabled="form.processing"

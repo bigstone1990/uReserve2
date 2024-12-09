@@ -64,6 +64,13 @@ const showingNavigationDropdown = ref(false);
                                 >
                                     イベント管理
                                 </NavLink>
+                                <NavLink
+                                    v-if="$page.props.auth.permissions.userHigher"
+                                    :href="route('mypage.index')"
+                                    :active="route().current('mypage.index')"
+                                >
+                                    マイページ
+                                </NavLink>
                             </div>
                         </div>
 
@@ -193,6 +200,13 @@ const showingNavigationDropdown = ref(false);
                                 :active="route().current('events.index')"
                             >
                                 イベント管理
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                v-if="$page.props.auth.permissions.userHigher"
+                                :href="route('mypage.index')"
+                                :active="route().current('mypage.index')"
+                            >
+                                マイページ
                             </ResponsiveNavLink>
                         </template>
                         <template v-else>
