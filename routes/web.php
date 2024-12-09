@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ReservationController;
 
 Route::get('/', function () {
     return Inertia::render('Calendar', [
@@ -21,14 +22,14 @@ Route::prefix('manager')->middleware('can:manager-higher')->group(function () {
 });
 
 Route::middleware('can:user-higher')->group(function () {
-    Route::get('/index', function () {
-        dd('user');
-    });
+    Route::get('/dashboard', [ReservationController::class, 'dashboard'])->name('dashboard');
+    Route::get('/events/{id}', [ReservationController::class, 'detail'])->name('events.detail');
+    Route::post('/events/{id}', [ReservationController::class, 'reserve'])->name('events.reserve');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

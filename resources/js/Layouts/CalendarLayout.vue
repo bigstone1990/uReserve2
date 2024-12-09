@@ -55,7 +55,7 @@ const showingNavigationDropdown = ref(false);
                                     :href="route('dashboard')"
                                     :active="route().current('dashboard')"
                                 >
-                                    Dashboard
+                                    イベントカレンダー
                                 </NavLink>
                                 <NavLink
                                     v-if="$page.props.auth.permissions.managerHigher"
@@ -185,7 +185,7 @@ const showingNavigationDropdown = ref(false);
                                 :href="route('dashboard')"
                                 :active="route().current('dashboard')"
                             >
-                                Dashboard
+                                イベントカレンダー
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 v-if="$page.props.auth.permissions.managerHigher"
